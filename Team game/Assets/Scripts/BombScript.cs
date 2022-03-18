@@ -5,7 +5,7 @@ using UnityEngine;
 public class BombScript : MonoBehaviour
 {
 
-	public float sped=4f;
+	public float sped = 4f;
 	public Vector3 LaunchOffset;
 	public bool Thrown;
 
@@ -13,17 +13,17 @@ public class BombScript : MonoBehaviour
 	{
 		if (Thrown)
 		{
-		var direction=transform.right+Vector3.up;
-		GetComponent<Rigidbody2D>().AddForce(direction*sped,ForceMode2D.Impulse);
+			var direction = transform.right + Vector3.up;
+			GetComponent<Rigidbody2D>().AddForce(direction * sped, ForceMode2D.Impulse);
 		}
 		transform.Translate(LaunchOffset);
 	}
 
 	void Update()
 	{
-		if(!Thrown)
+		if (!Thrown)
 		{
-		transform.position+=transform.right*sped*Time.deltaTime;
+			transform.position += transform.right * sped * Time.deltaTime;
 		}
 	}
 
@@ -31,10 +31,13 @@ public class BombScript : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D hitInfo)
 	{
+		if (hitInfo.gameObject.layer == 3)
+		{
+			DestroyObject(gameObject);
+		}
 
 
 
-		Destroy(gameObject);
 
 	}
 
